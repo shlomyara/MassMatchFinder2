@@ -11,13 +11,8 @@ target = st.number_input("🎯 Target number to match", format="%.5f")
 tolerance = st.number_input("🎯 Acceptable error/tolerance (e.g., 0.1)", value=0.1, format="%.5f")
 
 # --- Data ---
-cyclic = [
-    173.051, 197.084, 127.063, 147.055, 87.055,
-    200.095, 170.113, 207.113, 114.042, 114.042,
-    101.047, 129.042, 130.032
-]
 
-linear = [
+S-Tide = [
     174.058, 197.084, 127.063, 147.055, 87.055,
     200.095, 170.113, 207.113, 114.042, 114.042,
     101.047, 129.042, 131.040
@@ -48,10 +43,9 @@ for item in list2_raw:
 results = []
 # Custom names for specific result descriptions
 custom_names = {
-    "Linear + (1896.83,)": "Linear_Dimer",
-    "Cyclic + (1896.83,)": "Cyclic_Dimer",
-    "Cyclic + (0.984,)": "Cyclic_Deamination",
-    "Linear + (56.06,)": "Linear + tBu"
+    "S-Tide + (1896.83,)": "S-Tide_Dimer",
+    "S-Tide + (56.06,)": "S-Tide + tBu",
+     "S-Tide + (56.06,)": "S-Tide + tBu"
 }
 
 def within_tolerance(value):
@@ -60,7 +54,7 @@ def within_tolerance(value):
 def add_result(description, value, steps):
     if within_tolerance(value):
         error = abs(value - target)
-        description = description.replace("List1", "Cyclic").replace("List3", "Linear")
+        description = description.replace("List3", "S-Tide")
         
         # If a custom name exists, append it to the description
         if description in custom_names:
@@ -68,25 +62,23 @@ def add_result(description, value, steps):
         
         results.append((len(steps), error, description, value, error))
 
-sum_cyclic = sum(cyclic)
-sum_linear = sum(linear)
+sum_S-Tide = sum(S-Tide)
 
-add_result("Cyclic only", sum_cyclic, [])
-add_result("Linear only", sum_linear, [])
+add_result("S-Tide only", sum_S-Tide, [])
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in [("List3", sum_S-Tide)]:
     for r in range(1, 4):
         for combo in itertools.combinations_with_replacement(list2_add, r):
             value = base_sum + sum(combo)
             add_result(f"{base_label} + {combo}", value, combo)
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in [("List3", sum_S-Tide)]:
     for r in range(1, 4):
         for combo in itertools.combinations(list2_sub, r):
             value = base_sum - sum(combo)
             add_result(f"{base_label} - {combo}", value, combo)
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in [("List3", sum_S-Tide)]:
     for sub in list2_sub:
         for add in list2_add:
             if sub == add:
