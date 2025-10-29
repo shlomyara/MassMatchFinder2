@@ -65,7 +65,7 @@ sum_S_Tide = sum(S_Tide)
 
 add_result("S_Tide only", sum_S_Tide, [])
 
-for base_label, base_sum in ("List3", sum_S_Tide)]:
+for base_label, base_sum in [("List3", sum_S_Tide)]:
     for r in range(1, 4):
         for combo in itertools.combinations_with_replacement(list2_add, r):
             value = base_sum + sum(combo)
