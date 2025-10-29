@@ -1,4 +1,3 @@
-
 import streamlit as st
 import itertools
 
@@ -12,7 +11,7 @@ tolerance = st.number_input("🎯 Acceptable error/tolerance (e.g., 0.1)", value
 
 # --- Data ---
 
-STide = [
+S_Tide = [
 138.066, 97.052, 128.058, 57.021, 101.047, 147.068, 101.047, 87.032, 115.026,
 163.063, 87.032, 128.094, 163.063, 113.084, 115.026, 129.042, 156.101, 71.037,
 71.037, 128.094, 115.026, 147.068, 113.084, 128.094, 186.079, 113.084, 129.042,
@@ -20,13 +19,11 @@ STide = [
 ]
 
 list2_raw = [
-138.066, 97.052, 128.058, 57.021, 101.047, 87.032, 115.026,
-163.063, 87.032, 128.094, 163.063, 113.084, 156.101, 71.037,
-71.037, 128.094, 115.026, 147.068, 113.084, 128.094, 186.079,
-113.084, 129.042, 87.032, 87.055, 57.021, 57.021, 87.032,
-57.021, 87.032, 57.021, 129.042, 297.243,42.010, 0.984,
-2.015, '+71.037', '+242.109', '+56.06', '-15.977', '+252.082',
-'+230.11', '-18.010', '-14.015', '-17.026',
+138.066, 97.052, 128.058, 57.021, 101.047, 147.068, 101.047, 87.032, 115.026,
+163.063, 87.032, 128.094, 163.063, 113.084, 115.026, 129.042, 156.101, 71.037,
+71.037, 128.094, 115.026, 147.068, 113.084, 128.094, 186.079, 113.084, 129.042,
+87.032, 87.055, 57.021, 57.021, 87.032, 57.021, 87.032, 57.021, 129.042, 297.243 , 42.010,
+0.984, 2.015, '+71.037', '+242.109', '+56.06', '-15.977', '+252.082','+230.11', '-18.010', '-14.015', '-17.026',
 '+100.05', '+222.06', '-33.987', '-1.007', '+1896.83'
 ]
 
@@ -46,9 +43,8 @@ for item in list2_raw:
 results = []
 # Custom names for specific result descriptions
 custom_names = {
-    "STide + (1896.83,)": "STide_Dimer",
-    "STide + (56.06,)": "STide + tBu",
-     "STide + (56.06,)": "STide + tBu"
+    "S_Tide + (1896.83,)": "S_Tide_Dimer",
+    "S_Tide + (56.06,)": "S_Tide + tBu"
 }
 
 def within_tolerance(value):
@@ -57,7 +53,7 @@ def within_tolerance(value):
 def add_result(description, value, steps):
     if within_tolerance(value):
         error = abs(value - target)
-        description = description.replace("List3", "STide")
+        description = description.replace("List3", "S_Tide")
         
         # If a custom name exists, append it to the description
         if description in custom_names:
@@ -65,23 +61,23 @@ def add_result(description, value, steps):
         
         results.append((len(steps), error, description, value, error))
 
-sum_STide = sum(STide)
+sum_S_Tide = sum(S_Tide)
 
-add_result("STide only", sum_STide, [])
+add_result("S_Tide only", sum_S_Tide, [])
 
-for base_label, base_sum in [("List3", sum_STide)]:
+for base_label, base_sum in ("List3", sum_S_Tide)]:
     for r in range(1, 4):
         for combo in itertools.combinations_with_replacement(list2_add, r):
             value = base_sum + sum(combo)
             add_result(f"{base_label} + {combo}", value, combo)
 
-for base_label, base_sum in [("List3", sum_STide)]:
+for base_label, base_sum in [("List3", sum_S_Tide)]:
     for r in range(1, 4):
         for combo in itertools.combinations(list2_sub, r):
             value = base_sum - sum(combo)
             add_result(f"{base_label} - {combo}", value, combo)
 
-for base_label, base_sum in [("List3", sum_STide)]:
+for base_label, base_sum in [("List3", sum_S_Tide)]:
     for sub in list2_sub:
         for add in list2_add:
             if sub == add:
