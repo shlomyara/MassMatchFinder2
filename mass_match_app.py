@@ -1,8 +1,10 @@
+
+
 import streamlit as st
 import itertools
 
 # --- Title ---
-st.title("🧮 Mass Match Finder")
+st.title("🧮 Mass Match Finder 2")
 st.markdown("Enter a target mass and tolerance to find matching combinations.")
 
 # --- Input ---
@@ -10,9 +12,6 @@ target = st.number_input("🎯 Target number to match", format="%.5f")
 tolerance = st.number_input("🎯 Acceptable error/tolerance (e.g., 0.1)", value=0.1, format="%.5f")
 
 # --- Data ---
-cyclic = [
-
-]
 
 linear = [
     138.066, 97.052, 128.058, 57.021, 101.047, 147.068, 101.047, 87.032, 115.026,
@@ -49,8 +48,6 @@ results = []
 # Custom names for specific result descriptions
 custom_names = {
     "Linear + (1896.83,)": "Linear_Dimer",
-    "Cyclic + (1896.83,)": "Cyclic_Dimer",
-    "Cyclic + (0.984,)": "Cyclic_Deamination",
     "Linear + (56.06,)": "Linear + tBu"
 }
 
@@ -60,7 +57,7 @@ def within_tolerance(value):
 def add_result(description, value, steps):
     if within_tolerance(value):
         error = abs(value - target)
-        description = description.replace("List1", "Cyclic").replace("List3", "Linear")
+        description = description.replace("List3", "Linear")
         
         # If a custom name exists, append it to the description
         if description in custom_names:
@@ -68,25 +65,22 @@ def add_result(description, value, steps):
         
         results.append((len(steps), error, description, value, error))
 
-sum_cyclic = sum(cyclic)
 sum_linear = sum(linear)
-
-add_result("Cyclic only", sum_cyclic, [])
 add_result("Linear only", sum_linear, [])
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in ["List3", sum_linear]:
     for r in range(1, 4):
         for combo in itertools.combinations_with_replacement(list2_add, r):
             value = base_sum + sum(combo)
             add_result(f"{base_label} + {combo}", value, combo)
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in ["List3", sum_linear]:
     for r in range(1, 4):
         for combo in itertools.combinations(list2_sub, r):
             value = base_sum - sum(combo)
             add_result(f"{base_label} - {combo}", value, combo)
 
-for base_label, base_sum in [("List1", sum_cyclic), ("List3", sum_linear)]:
+for base_label, base_sum in ["List3", sum_linear]:
     for sub in list2_sub:
         for add in list2_add:
             if sub == add:
