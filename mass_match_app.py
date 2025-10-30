@@ -68,19 +68,19 @@ def add_result(description, value, steps):
 sum_linear = sum(linear)
 add_result("Linear only", sum_linear, [])
 
-for base_label, base_sum in ("List3", sum_linear):
+for base_label, base_sum in [("List3", sum_linear)]:
     for r in range(1, 4):
         for combo in itertools.combinations_with_replacement(list2_add, r):
             value = base_sum + sum(combo)
             add_result(f"{base_label} + {combo}", value, combo)
 
-for base_label, base_sum in ("List3", sum_linear):
+for base_label, base_sum in [("List3", sum_linear)]:
     for r in range(1, 4):
         for combo in itertools.combinations(list2_sub, r):
             value = base_sum - sum(combo)
             add_result(f"{base_label} - {combo}", value, combo)
 
-for base_label, base_sum in ["List3", sum_linear]:
+for base_label, base_sum in [("List3", sum_linear)]:
     for sub in list2_sub:
         for add in list2_add:
             if sub == add:
