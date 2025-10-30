@@ -14,7 +14,7 @@ tolerance = st.number_input("🎯 Acceptable error/tolerance (e.g., 0.1)", value
 
 # --- Data Configuration ---
 data_config = {
-    "Linear": {
+    "I_Tide_Linear": {
         "main": [
             174.058, 197.084, 127.063, 147.055, 87.055,
             200.095, 170.113, 207.113, 114.042, 114.042,
@@ -29,7 +29,7 @@ data_config = {
     '+100.05', '+222.06', '-33.987', '-1.007', '+1896.83'
         ]
     },
-    "Cyclic": {
+    "I_Tide_Cyclic": {
         "main": [
             173.051, 197.084, 127.063, 147.055, 87.055,
             200.095, 170.113, 207.113, 114.042, 114.042,
@@ -57,7 +57,7 @@ data_config = {
 115.026, 147.068, 186.079, 129.042,
 129.042, 297.243, 42.010, 0.984, 2.015, '+71.037', '+242.109', '+56.06', '-15.977', '+252.082',
     '+230.11', '-18.010', '-14.015', '-17.026',
-    '+100.05', '+222.06', '-33.987', '-1.007', '+1896.83'
+    '+100.05', '+222.06', '-33.987', '-1.007'
         ]
     }
 }
@@ -85,11 +85,11 @@ for item in list2_raw:
 
 # --- Custom result names ---
 custom_names = {
-    "Linear + (1896.83,)": "Linear_Dimer",
-    "Linear + (56.06,)": "Linear + tBu",
-    "Cyclic + (1896.83,)": "Cyclic_Dimer",
-    "Cyclic + (0.984,)": "Cyclic_Deamination",
-    "S_Tide + (150.0,)": "S_Tide + 150 Mod"
+    "I_Tide_Linear + (1896.83,)": "I_Tide_Linear_Dimer",
+    "I_Tide_Linear + (56.06,)": "I_Tide_Linear + tBu",
+    "I_Tide_Cyclic + (1896.83,)": "I_Tide_Cyclic_Dimer",
+    "I_Tide_Cyclic + (0.984,)": "I_Tide_Cyclic_Deamination",
+    "S_Tide + (56.06,)": "S_Tide + tBu"
 }
 
 # --- Combination Type Toggles ---
